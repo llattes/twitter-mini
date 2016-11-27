@@ -10,55 +10,56 @@ import javax.xml.bind.annotation.XmlAccessType;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tweet {
-    @XmlElement
-    private Long id;
-    @XmlElement
-    private String author; // Reference to another object?
-    @XmlElement
-    private String content;
-    @XmlElement
-    private Date timestamp;
-    
-    public Tweet() {
-	this.timestamp = new Date();
-    }
-    
-    public Tweet(Long id, String author, String content) {
-	this.id = id;
-	this.author = author;
-	this.content = content;
-	this.timestamp = new Date();
-    }
+  
+  @XmlElement
+  private Long id;
+  @XmlElement
+  private String author; // Reference to another object?
+  @XmlElement
+  private String content;
+  @XmlElement
+  private Date timestamp;
 
-    public Long getId() {
-        return id;
-    }
+  public Tweet() {
+    this.timestamp = new Date();
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Tweet(Long id, String author, String content) {
+    this.id = id;
+    this.author = author;
+    this.content = content;
+    this.timestamp = new Date();
+  }
 
-    public String getAuthor() {
-        return author;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public String getAuthor() {
+    return author;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public Date getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(Date timestamp) {
+    this.timestamp = timestamp;
+  }
 }

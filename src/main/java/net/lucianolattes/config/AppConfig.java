@@ -21,52 +21,49 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "net.lucianolattes")
-@PropertySource(value = {"classpath:application.properties"})
+@PropertySource(value = { "classpath:application.properties" })
 public class AppConfig extends WebMvcConfigurerAdapter {
-    
-    @Autowired
-    private Environment environment;
-    
-    @Value("${init-db:true}")
-    private String initDatabase;
 
-    @Bean
-    public DataSource dataSource() {
-	DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-	dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-	dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-	dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
-	return dataSource;
-    }
+  @Autowired
+  private Environment environment;
 
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) throws ClassNotFoundException {
-	return new JdbcTemplate(dataSource);
-    }
-    
-    @Bean
-    public DataSourceInitializer dataSourceInitializer(DataSource dataSource)
-    {
-        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();    
-        dataSourceInitializer.setDataSource(dataSource);
-        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScripts(new ClassPathResource("schema.sql"), new ClassPathResource("data.sql"));
-        databasePopulator.setContinueOnError(true);
-        ResourceDatabasePopulator databaseCleaner = new ResourceDatabasePopulator();
-        databaseCleaner.addScript(new ClassPathResource("cleanup.sql"));
-        dataSourceInitializer.setDatabasePopulator(databasePopulator);
-        dataSourceInitializer.setDatabaseCleaner(databaseCleaner);
-        dataSourceInitializer.setEnabled(Boolean.parseBoolean(initDatabase));
-        return dataSourceInitializer;
-    }
-    
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-          .addResourceLocations("classpath:/META-INF/resources/");
-     
-        registry.addResourceHandler("/webjars/**")
-          .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+  @Value("${init-db:true}")
+  private String initDatabase;
+
+  @Bean
+  public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+    dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+    dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+    dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+    return dataSource;
+  }
+
+  @Bean
+  public JdbcTemplate jdbcTemplate(DataSource dataSource) throws ClassNotFoundException {
+    return new JdbcTemplate(dataSource);
+  }
+
+  @Bean
+  public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+    DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+    dataSourceInitializer.setDataSource(dataSource);
+    ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+    databasePopulator.addScripts(new ClassPathResource("schema.sql"), new ClassPathResource("data.sql"));
+    databasePopulator.setContinueOnError(true);
+    ResourceDatabasePopulator databaseCleaner = new ResourceDatabasePopulator();
+    databaseCleaner.addScript(new ClassPathResource("cleanup.sql"));
+    dataSourceInitializer.setDatabasePopulator(databasePopulator);
+    dataSourceInitializer.setDatabaseCleaner(databaseCleaner);
+    dataSourceInitializer.setEnabled(Boolean.parseBoolean(initDatabase));
+    return dataSourceInitializer;
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+
+    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
 }

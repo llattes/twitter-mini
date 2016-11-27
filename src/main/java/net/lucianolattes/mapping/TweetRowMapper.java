@@ -10,17 +10,17 @@ import net.lucianolattes.model.Tweet;
 
 public class TweetRowMapper implements RowMapper<Tweet> {
 
-    @Override
-    public Tweet mapRow(ResultSet rs, int row) throws SQLException {
-	Tweet tweet = new Tweet();
-	
-	tweet.setId(rs.getLong("id"));
-	tweet.setAuthor(rs.getString("author"));
-	tweet.setContent(rs.getString("content"));
-	
-	Timestamp timestamp = rs.getTimestamp("timestamp");
-	tweet.setTimestamp(new java.util.Date(timestamp.getTime()));
-	
-	return tweet;
-    }
+  @Override
+  public Tweet mapRow(ResultSet rs, int row) throws SQLException {
+    Tweet tweet = new Tweet();
+
+    tweet.setId(rs.getLong("id"));
+    tweet.setAuthor(rs.getString("author"));
+    tweet.setContent(rs.getString("content"));
+
+    Timestamp timestamp = rs.getTimestamp("timestamp");
+    tweet.setTimestamp(new java.util.Date(timestamp.getTime()));
+
+    return tweet;
+  }
 }

@@ -19,60 +19,62 @@ import net.lucianolattes.dao.TweetDao;
 import net.lucianolattes.model.Tweet;
 
 @RestController
+@RequestMapping(value = "/api")
 public class TweetController {
 
-    @Autowired
-    private TweetDao tweetDao;
+  @Autowired
+  private TweetDao tweetDao;
 
-    @RequestMapping(value = "/tweets", produces = {"application/xml", "application/json"}, method = RequestMethod.GET)
-    public List<Tweet> getTweets() {
-	return tweetDao.list();
+  @RequestMapping(value = "/tweets", produces = { "application/xml", "application/json" }, method = RequestMethod.GET)
+  public List<Tweet> getTweets() {
+    return tweetDao.list();
+  }
+
+  @RequestMapping(value = "/db-tweets", produces = { "application/xml",
+      "application/json" }, method = RequestMethod.GET)
+  public List<Tweet> getDBTweets() {
+    return tweetDao.getAllTweets();
+  }
+
+  @GetMapping("/tweets/{id}")
+  public ResponseEntity getTweet(@PathVariable("id") Long id) {
+
+    Tweet tweet = tweetDao.get(id);
+
+    if (tweet == null) {
+      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/db-tweets", produces = {"application/xml", "application/json"}, method = RequestMethod.GET)
-    public List<Tweet> getDBTweets() {
-	return tweetDao.getAllTweets();
-    }
-    
-    @GetMapping("/tweets/{id}")
-    public ResponseEntity getTweet(@PathVariable("id") Long id) {
+    return new ResponseEntity(tweet, HttpStatus.OK);
+  }
 
-	Tweet tweet = tweetDao.get(id);
-	
-	if (tweet == null) {
-	    return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
-	}
+  @PostMapping(value = "/tweets")
+  public ResponseEntity createTweet(@RequestBody Tweet tweet) {
 
-	return new ResponseEntity(tweet, HttpStatus.OK);
-    }
+    tweetDao.create(tweet);
 
-    @PostMapping(value = "/tweets")
-    public ResponseEntity createTweet(@RequestBody Tweet tweet) {
+    return new ResponseEntity(tweet, HttpStatus.OK);
+  }
 
-	tweetDao.create(tweet);
+  @DeleteMapping("/tweets/{id}")
+  public ResponseEntity deleteTweet(@PathVariable Long id) {
 
-	return new ResponseEntity(tweet, HttpStatus.OK);
+    if (null == tweetDao.delete(id)) {
+      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/tweets/{id}")
-    public ResponseEntity deleteTweet(@PathVariable Long id) {
+    return new ResponseEntity(id, HttpStatus.OK);
+  }
 
-	if (null == tweetDao.delete(id)) {
-	    return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
-	}
+  @PutMapping("/tweets/{id}")
+  public ResponseEntity updateTweet(@PathVariable Long id, @RequestBody Tweet tweet) {
 
-	return new ResponseEntity(id, HttpStatus.OK);
+    tweet = tweetDao.update(id, tweet);
+
+    if (null == tweet) {
+      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/tweets/{id}")
-    public ResponseEntity updateTweet(@PathVariable Long id, @RequestBody Tweet tweet) {
-
-	tweet = tweetDao.update(id, tweet);
-
-	if (null == tweet) {
-	    return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
-	}
-
-	return new ResponseEntity(tweet, HttpStatus.OK);
-    }
+    return new ResponseEntity(tweet, HttpStatus.OK);
+  }
 }
