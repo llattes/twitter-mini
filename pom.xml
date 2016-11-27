@@ -103,6 +103,14 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.14.v20161028</version>
+				<configuration>
+					<war>${project.basedir}/target/twitter-mini.war</war>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
