@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,7 @@ import net.lucianolattes.model.Tweet;
 public class TweetDao {
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;
+  private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   // Dummy database. Initialize with some dummy values.
   private static List<Tweet> tweets;
@@ -34,7 +34,7 @@ public class TweetDao {
   }
 
   public List<Tweet> getAllTweets() {
-    List<Tweet> tweets = jdbcTemplate.query("select * from tweet", new TweetRowMapper());
+    List<Tweet> tweets = namedParameterJdbcTemplate.query("select * from tweet", new TweetRowMapper());
     return tweets;
   }
 

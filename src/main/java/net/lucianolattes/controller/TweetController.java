@@ -2,19 +2,18 @@ package net.lucianolattes.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import net.lucianolattes.dao.TweetDao;
 import net.lucianolattes.model.Tweet;
 
@@ -22,59 +21,43 @@ import net.lucianolattes.model.Tweet;
 @RequestMapping(value = "/api")
 public class TweetController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(TweetController.class);
+
   @Autowired
   private TweetDao tweetDao;
 
+  @ApiOperation(value = "", notes = "Get tweets for the authenticated user")
   @RequestMapping(value = "/tweets", produces = { "application/xml", "application/json" }, method = RequestMethod.GET)
-  public List<Tweet> getTweets() {
-    return tweetDao.list();
-  }
+  public List<Tweet> getDBTweets(Authentication authentication) {
+    User authenticatedUser = (User) authentication.getPrincipal();
 
-  @RequestMapping(value = "/db-tweets", produces = { "application/xml",
-      "application/json" }, method = RequestMethod.GET)
-  public List<Tweet> getDBTweets() {
+    if (authenticatedUser != null) {
+      LOGGER.debug("Authenticated username: " + authenticatedUser.getUsername());
+    }
+
     return tweetDao.getAllTweets();
   }
 
-  @GetMapping("/tweets/{id}")
-  public ResponseEntity getTweet(@PathVariable("id") Long id) {
+  @RequestMapping(value = "/tweets", produces = { "application/xml", "application/json" }, method = RequestMethod.POST)
+  public Tweet addTweet(@RequestBody Tweet tweet, Authentication authentication) {
+    User authenticatedUser = (User) authentication.getPrincipal();
 
-    Tweet tweet = tweetDao.get(id);
-
-    if (tweet == null) {
-      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
+    if (authenticatedUser != null) {
+      LOGGER.debug("Authenticated username: " + authenticatedUser.getUsername());
     }
 
-    return new ResponseEntity(tweet, HttpStatus.OK);
+    return tweet;
   }
+  
+  @RequestMapping(value = "/tweets/{userId}", produces = { "application/xml",
+      "application/json" }, method = RequestMethod.GET)
+  public List<Tweet> getDBTweets(@PathVariable String userId, Authentication authentication) {
+    User authenticatedUser = (User) authentication.getPrincipal();
 
-  @PostMapping(value = "/tweets")
-  public ResponseEntity createTweet(@RequestBody Tweet tweet) {
-
-    tweetDao.create(tweet);
-
-    return new ResponseEntity(tweet, HttpStatus.OK);
-  }
-
-  @DeleteMapping("/tweets/{id}")
-  public ResponseEntity deleteTweet(@PathVariable Long id) {
-
-    if (null == tweetDao.delete(id)) {
-      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
+    if (authenticatedUser != null) {
+      LOGGER.debug("Authenticated username: " + authenticatedUser.getUsername());
     }
 
-    return new ResponseEntity(id, HttpStatus.OK);
-  }
-
-  @PutMapping("/tweets/{id}")
-  public ResponseEntity updateTweet(@PathVariable Long id, @RequestBody Tweet tweet) {
-
-    tweet = tweetDao.update(id, tweet);
-
-    if (null == tweet) {
-      return new ResponseEntity("No Tweet found for ID " + id, HttpStatus.NOT_FOUND);
-    }
-
-    return new ResponseEntity(tweet, HttpStatus.OK);
+    return tweetDao.getAllTweets();
   }
 }

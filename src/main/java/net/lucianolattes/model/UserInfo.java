@@ -1,7 +1,6 @@
 package net.lucianolattes.model;
 
 public class UserInfo {
-
   private String username;
 
   private String password;

@@ -3,30 +3,34 @@ package net.lucianolattes.security;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  @SuppressWarnings("unused")
   @Autowired
   private DataSource dataSource;
-  
+
   @Autowired
   private AuthenticationService authenticationService;
 
   @Autowired
-  public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//    auth.jdbcAuthentication().dataSource(dataSource)
-//        .usersByUsernameQuery("SELECT username, password FROM users WHERE username = ?")
-//        .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
-    auth.userDetailsService(authenticationService);
+  public void configAuthentication(AuthenticationManagerBuilder authn) throws Exception {
+    ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+    authn.userDetailsService(authenticationService).passwordEncoder(encoder);
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().authorizeRequests().antMatchers("/api/**").hasAnyRole("ADMIN", "USER").anyRequest().permitAll().and().httpBasic();
+    http.csrf().disable().authorizeRequests().antMatchers("/api/**").hasAnyRole("ADMIN", "USER").anyRequest()
+        .permitAll().and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 }
