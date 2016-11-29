@@ -17,9 +17,10 @@ public class TweetRowMapper implements RowMapper<Tweet> {
     tweet.setId(rs.getLong("id"));
     tweet.setAuthor(rs.getString("author"));
     tweet.setContent(rs.getString("content"));
-
     Timestamp timestamp = rs.getTimestamp("timestamp");
     tweet.setTimestamp(new java.util.Date(timestamp.getTime()));
+    tweet.setIsRetweet(rs.getBoolean("isretweet"));
+    tweet.setOriginalAuthor(rs.getString("originalauthor"));
 
     return tweet;
   }

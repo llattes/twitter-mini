@@ -2,33 +2,41 @@ package net.lucianolattes.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlAccessType;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tweet {
-  
+
   @XmlElement
   private Long id;
   @XmlElement
-  private String author; // Reference to another object?
+  private String author;
   @XmlElement
   private String content;
   @XmlElement
   private Date timestamp;
+  @XmlElement
+  private Boolean isRetweet;
+  @XmlElement
+  private String originalAuthor;
 
   public Tweet() {
     this.timestamp = new Date();
+    this.isRetweet = false;
+    this.originalAuthor = null;
   }
 
-  public Tweet(Long id, String author, String content) {
+  public Tweet(Long id, String author, String content, Boolean isRetweet, String originalAuthor) {
     this.id = id;
     this.author = author;
     this.content = content;
     this.timestamp = new Date();
+    this.isRetweet = isRetweet;
+    this.originalAuthor = originalAuthor;
   }
 
   public Long getId() {
@@ -61,5 +69,21 @@ public class Tweet {
 
   public void setTimestamp(Date timestamp) {
     this.timestamp = timestamp;
+  }
+
+  public Boolean getIsRetweet() {
+    return isRetweet;
+  }
+
+  public void setIsRetweet(Boolean isRetweet) {
+    this.isRetweet = isRetweet;
+  }
+
+  public String getOriginalAuthor() {
+    return originalAuthor;
+  }
+
+  public void setOriginalAuthor(String originalAuthor) {
+    this.originalAuthor = originalAuthor;
   }
 }
