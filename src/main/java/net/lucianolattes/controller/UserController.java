@@ -98,7 +98,7 @@ public class UserController {
     return ResponseEntity.ok(followingByGivenUser);
   }
 
-  @ApiOperation(value = "", notes = "Allows the authenticated user to follow the user specified request body")
+  @ApiOperation(value = "", notes = "Allows the authenticated user to follow the user specified in the request body")
   @RequestMapping(value = "/follow", produces = { "application/xml", "application/json" }, method = RequestMethod.POST)
   public ResponseEntity<List<UserProfile>> follow(@RequestBody UserInfo user, Authentication authentication)
       throws FollowException, UserNotFoundException, URISyntaxException {
@@ -114,10 +114,10 @@ public class UserController {
     }
 
     List<UserProfile> followers = userService.follow(authenticatedUser.getUsername(), user.getUsername());
-    return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm")).body(followers);
+    return ResponseEntity.created(new URI("http://localhost:8080")).body(followers);
   }
 
-  @ApiOperation(value = "", notes = "Allows the authenticated user to unfollow the user specified request body")
+  @ApiOperation(value = "", notes = "Allows the authenticated user to unfollow the user specified in the request body")
   @RequestMapping(value = "/unfollow", produces = { "application/xml",
       "application/json" }, method = RequestMethod.POST)
   public ResponseEntity<List<UserProfile>> unfollow(@RequestBody UserInfo user, Authentication authentication)
@@ -134,7 +134,7 @@ public class UserController {
     }
 
     List<UserProfile> followers = userService.unfollow(authenticatedUser.getUsername(), user.getUsername());
-    return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm")).body(followers);
+    return ResponseEntity.created(new URI("http://localhost:8080")).body(followers);
   }
 
   @ExceptionHandler(UserNotFoundException.class)

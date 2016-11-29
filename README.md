@@ -24,7 +24,7 @@ After validating the prerequisites, perform the following steps to run the appli
 6. Run `mvn jetty:run-war` or `mvn jetty:run` to start the application. Once you see the following two lines, you should be able to start using the application: `[INFO] Started @5575ms - [INFO] Started Jetty Server`
 7. Hit `http://localhost:8080/` to see the list of endpoints of the **twitter-mini** RESTful API and a brief description of how those endpoints work.
 
-
+![Swagger UI](https://github.com/llattes/twitter-mini/raw/master/readme-files/swagger-ui-screen.png)
 
 ## Using the API
 
@@ -42,4 +42,8 @@ twitter      | twitter
 johndoe      | johndoe
 iamdevloper  | iamdevloper
 
-The following is a s
+The following is a Postman screenshot showing how to perform a `GET` request to obtain the tweets of the user authenticated with Basic Auth:
+
+![Postman Basic Auth](https://github.com/llattes/twitter-mini/raw/master/readme-files/postman-screen.png)
+
+All requests can produce `application/json` **and** `application/xml` responses; just add the `Accept` request header with the corresponding media type.

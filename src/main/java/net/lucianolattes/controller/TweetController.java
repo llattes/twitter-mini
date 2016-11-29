@@ -51,7 +51,7 @@ public class TweetController {
     return ResponseEntity.ok(tweetService.getTweets(authenticatedUser.getUsername(), search));
   }
 
-  @ApiOperation(value = "", notes = "Publish / create new tweet")
+  @ApiOperation(value = "", notes = "Publish/create new tweet")
   @RequestMapping(value = "/tweets/create", produces = { "application/xml",
       "application/json" }, method = RequestMethod.POST)
   public ResponseEntity<Tweet> addTweet(@RequestBody Tweet tweet, Authentication authentication)
@@ -71,7 +71,7 @@ public class TweetController {
       throw new TweetException("Tweet 'content' must not exceed a maximum of 140 characters");
     }
 
-    return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm"))
+    return ResponseEntity.created(new URI("http://localhost:8080"))
         .body(tweetService.insertTweet(authenticatedUser.getUsername(), tweet));
   }
 
@@ -87,7 +87,7 @@ public class TweetController {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
-    return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm"))
+    return ResponseEntity.created(new URI("http://localhost:8080"))
         .body(tweetService.retweet(authenticatedUser.getUsername(), id));
   }
 
