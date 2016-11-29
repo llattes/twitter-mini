@@ -28,6 +28,7 @@ CREATE TABLE tweets (
   content VARCHAR(256) NOT NULL,
   timestamp DATETIME NOT NULL,
   isRetweet TINYINT(1) NOT NULL,
+  originalId BIGINT,
   originalAuthor VARCHAR(50),
   PRIMARY KEY (id),
   CONSTRAINT fk_tweets_author_users FOREIGN KEY (author) REFERENCES users (username),

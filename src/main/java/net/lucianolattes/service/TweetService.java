@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import net.lucianolattes.dao.TweetDao;
 import net.lucianolattes.dao.UserDao;
+import net.lucianolattes.exception.TweetException;
 import net.lucianolattes.exception.UserNotFoundException;
 import net.lucianolattes.model.Tweet;
 import net.lucianolattes.model.UserProfile;
@@ -41,5 +42,20 @@ public class TweetService {
     tweetDao.insertTweet(tweet);
     List<Tweet> tweets = getTweets(username, null);
     return tweets.get(tweets.size() - 1);
+  }
+
+  public Tweet retweet(String username, Long id) throws TweetException {
+    Tweet originalTweet = tweetDao.getTweetById(id);
+    if (originalTweet == null) {
+      throw new TweetException("Could not find tweet with ID '" + id + "' to retweet");
+    }
+    
+    if (!tweetDao.retweetAllowed(username, id)) {
+      throw new TweetException("The tweet '" + id + "' was already retweeted or it is " + username + "'s own tweet");
+    }
+    
+    Tweet retweet = new Tweet(null, null, originalTweet.getContent(), true, originalTweet.getId(),
+        originalTweet.getAuthor());
+    return insertTweet(username, retweet);
   }
 }

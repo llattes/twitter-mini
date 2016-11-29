@@ -5,9 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserProfile {
+
+  @JsonUnwrapped
   @XmlElement
   private UserInfo userInfo;
   @XmlElement

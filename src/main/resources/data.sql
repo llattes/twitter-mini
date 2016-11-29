@@ -21,12 +21,12 @@ VALUES
   ('twitter',      'thousandeyes'),
   ('twitter',      'johndoe');
   
-INSERT INTO tweets (author, content, timestamp, isRetweet, originalAuthor)
+INSERT INTO tweets (author, content, timestamp, isRetweet, originalId, originalAuthor)
 VALUES
-  ('luciano',      'This is my first tweet!', NOW(), 0, NULL),
-  ('thousandeyes', 'Diagnose Your Network in Real Time', NOW(), 0, NULL),
-  ('iamdevloper',  'No-one realised it, but Apple’s biggest revenue stream is now adapters.', NOW(), 0, NULL),
-  ('twitter',      'Put a turkey on it with featured Thanksgiving #Stickers.', NOW(), 0, NULL),
-  ('luciano',      'Put a turkey on it with featured Thanksgiving #Stickers.', NOW(), 1, 'twitter'),
-  ('thousandeyes', 'Our network perimeter has expanded to cloud partners & clients, road warriors & WFH employees.', NOW(), 0, NULL),
-  ('johndoe',      'Listening to Dream Theater in a good mood!', NOW(), 0, NULL);
+  ('luciano',      'This is my first tweet!', NOW(), 0, NULL, NULL),
+  ('thousandeyes', 'Diagnose Your Network in Real Time', NOW(), 0, NULL, NULL),
+  ('iamdevloper',  'No-one realised it, but Apple’s biggest revenue stream is now adapters.', NOW(), 0, NULL, NULL),
+  ('twitter',      'Put a turkey on it with featured Thanksgiving #Stickers.', NOW(), 0, NULL, NULL),
+  ('luciano',      'Put a turkey on it with featured Thanksgiving #Stickers.', NOW(), 1, 4, 'twitter'),
+  ('thousandeyes', 'Our network perimeter has expanded to cloud partners & clients, road warriors & WFH employees.', NOW(), 0, NULL, NULL),
+  ('johndoe',      'Listening to Dream Theater in a good mood!', NOW(), 0, NULL, NULL);

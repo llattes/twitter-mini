@@ -64,11 +64,11 @@ public class TweetController {
     }
 
     if (tweet.getContent() == null) {
-      throw new TweetException("Tweet content cannot be null");
+      throw new TweetException("Tweet 'content' cannot be null");
     }
 
     if (tweet.getContent().length() > 140) {
-      throw new TweetException("Tweet content must have a maximum of 140 characters");
+      throw new TweetException("Tweet 'content' must not exceed a maximum of 140 characters");
     }
 
     return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm"))
@@ -78,14 +78,17 @@ public class TweetController {
   @ApiOperation(value = "", notes = "Retweets a tweet and returns the original tweet")
   @RequestMapping(value = "/tweets/retweet/{id}", produces = { "application/xml",
       "application/json" }, method = RequestMethod.POST)
-  public Tweet addTweet(@PathVariable Long id, Authentication authentication) {
+  public ResponseEntity<Tweet> retweet(@PathVariable Long id, Authentication authentication)
+      throws URISyntaxException, TweetException {
     User authenticatedUser = (User) authentication.getPrincipal();
 
-    if (authenticatedUser != null) {
-      LOGGER.debug("Authenticated username: " + authenticatedUser.getUsername());
+    if (authenticatedUser == null) {
+      LOGGER.debug("There is no authenticated User");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
-    return new Tweet();
+    return ResponseEntity.created(new URI("http://localhost:8080/swagger-ui.htm"))
+        .body(tweetService.retweet(authenticatedUser.getUsername(), id));
   }
 
   @ApiOperation(value = "", notes = "Get tweets for the user whose ID is specified as path variable")

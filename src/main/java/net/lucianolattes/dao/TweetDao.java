@@ -39,8 +39,30 @@ public class TweetDao {
     return tweets;
   }
 
+  public Tweet getTweetById(Long id) {
+    String sql = "SELECT * FROM tweets WHERE id = :id";
+    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("id", id);
+    List<Tweet> tweets = namedParameterJdbcTemplate.query(sql, mapSqlParameterSource, new TweetRowMapper());
+    if (tweets.isEmpty()) {
+      return null;
+    }
+    return tweets.get(0);
+  }
+
+  public Boolean retweetAllowed(String username, Long id) {
+    String sql = "SELECT count(*) FROM tweets WHERE (author = :username AND originalId = :id) OR (author = :username AND id = :id)";
+    MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource("username", username).addValue("id", id);
+    int count = namedParameterJdbcTemplate.queryForObject(sql, mapSqlParameterSource, Integer.class);
+
+    if (count > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   public void insertTweet(Tweet tweet) {
-    String sql = "INSERT INTO tweets (author, content, timestamp, isRetweet, originalAuthor) VALUES (:author, :content, :timestamp, :isRetweet, :originalAuthor)";
+    String sql = "INSERT INTO tweets (author, content, timestamp, isRetweet, originalId, originalAuthor) VALUES (:author, :content, :timestamp, :isRetweet, :originalId, :originalAuthor)";
     namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(tweet));
   }
 }

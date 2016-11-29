@@ -22,20 +22,24 @@ public class Tweet {
   @XmlElement
   private Boolean isRetweet;
   @XmlElement
+  private Long originalId;
+  @XmlElement
   private String originalAuthor;
 
   public Tweet() {
     this.timestamp = new Date();
     this.isRetweet = false;
+    this.originalId = null;
     this.originalAuthor = null;
   }
 
-  public Tweet(Long id, String author, String content, Boolean isRetweet, String originalAuthor) {
+  public Tweet(Long id, String author, String content, Boolean isRetweet, Long originalId, String originalAuthor) {
     this.id = id;
     this.author = author;
     this.content = content;
     this.timestamp = new Date();
     this.isRetweet = isRetweet;
+    this.originalId = originalId;
     this.originalAuthor = originalAuthor;
   }
 
@@ -77,6 +81,14 @@ public class Tweet {
 
   public void setIsRetweet(Boolean isRetweet) {
     this.isRetweet = isRetweet;
+  }
+
+  public Long getOriginalId() {
+    return originalId;
+  }
+
+  public void setOriginalId(Long originalId) {
+    this.originalId = originalId;
   }
 
   public String getOriginalAuthor() {
