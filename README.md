@@ -24,6 +24,8 @@ After validating the prerequisites, perform the following steps to run the appli
 6. Run `mvn jetty:run-war` or `mvn jetty:run` to start the application. Once you see the following two lines, you should be able to start using the application: `[INFO] Started @5575ms - [INFO] Started Jetty Server`
 7. Hit `http://localhost:8080/` to see the list of endpoints of the **twitter-mini** RESTful API and a brief description of how those endpoints work.
 
+
+
 ## Using the API
 
 Every time the application starts, the database is conveniently seeded with some dummy data.
@@ -40,3 +42,4 @@ twitter      | twitter
 johndoe      | johndoe
 iamdevloper  | iamdevloper
 
+The following is a s

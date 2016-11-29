@@ -41,7 +41,7 @@ public class UserController {
   @ApiOperation(value = "", notes = "Returns a collection of users following the authenticated user")
   @RequestMapping(value = "/followers", produces = { "application/xml",
       "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<List<UserProfile>> getFollowers(Authentication authentication) {
+  public ResponseEntity<List<UserProfile>> getOwnFollowers(Authentication authentication) {
     User authenticatedUser = (User) authentication.getPrincipal();
 
     if (authenticatedUser == null) {
@@ -55,7 +55,7 @@ public class UserController {
   @ApiOperation(value = "", notes = "Returns a collection of users following the user whose ID is specified as path variable")
   @RequestMapping(value = "/followers/{userId}", produces = { "application/xml",
       "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<Object> getFollowers(@PathVariable String userId, Authentication authentication)
+  public ResponseEntity<Object> getUserFollowers(@PathVariable String userId, Authentication authentication)
       throws UserNotFoundException {
     User authenticatedUser = (User) authentication.getPrincipal();
 
@@ -71,7 +71,7 @@ public class UserController {
   @ApiOperation(value = "", notes = "Returns a collection of users followed by the authenticated user")
   @RequestMapping(value = "/following", produces = { "application/xml",
       "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<List<UserProfile>> getFollowing(Authentication authentication) {
+  public ResponseEntity<List<UserProfile>> getOwnFollowing(Authentication authentication) {
     User authenticatedUser = (User) authentication.getPrincipal();
 
     if (authenticatedUser == null) {
@@ -85,7 +85,7 @@ public class UserController {
   @ApiOperation(value = "", notes = "Returns a collection of users followed by the user whose ID is specified as path variable")
   @RequestMapping(value = "/following/{userId}", produces = { "application/xml",
       "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<Object> getFollowing(@PathVariable String userId, Authentication authentication)
+  public ResponseEntity<Object> getUserFollowing(@PathVariable String userId, Authentication authentication)
       throws UserNotFoundException {
     User authenticatedUser = (User) authentication.getPrincipal();
 

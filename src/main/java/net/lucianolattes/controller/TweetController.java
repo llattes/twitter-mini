@@ -39,7 +39,7 @@ public class TweetController {
 
   @ApiOperation(value = "", notes = "Get tweets for the authenticated user")
   @RequestMapping(value = "/tweets", produces = { "application/xml", "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<List<Tweet>> getUserTweets(@RequestParam(value = "search", required = false) String search,
+  public ResponseEntity<List<Tweet>> getOwnTweets(@RequestParam(value = "search", required = false) String search,
       Authentication authentication) {
     User authenticatedUser = (User) authentication.getPrincipal();
 
@@ -51,7 +51,7 @@ public class TweetController {
     return ResponseEntity.ok(tweetService.getTweets(authenticatedUser.getUsername(), search));
   }
 
-  @ApiOperation(value = "", notes = "Publish new tweet")
+  @ApiOperation(value = "", notes = "Publish / create new tweet")
   @RequestMapping(value = "/tweets/create", produces = { "application/xml",
       "application/json" }, method = RequestMethod.POST)
   public ResponseEntity<Tweet> addTweet(@RequestBody Tweet tweet, Authentication authentication)
@@ -75,7 +75,7 @@ public class TweetController {
         .body(tweetService.insertTweet(authenticatedUser.getUsername(), tweet));
   }
 
-  @ApiOperation(value = "", notes = "Retweets a tweet and returns the original tweet")
+  @ApiOperation(value = "", notes = "Retweet an existing tweet")
   @RequestMapping(value = "/tweets/retweet/{id}", produces = { "application/xml",
       "application/json" }, method = RequestMethod.POST)
   public ResponseEntity<Tweet> retweet(@PathVariable Long id, Authentication authentication)
@@ -94,7 +94,7 @@ public class TweetController {
   @ApiOperation(value = "", notes = "Get tweets for the user whose ID is specified as path variable")
   @RequestMapping(value = "/tweets/{userId}", produces = { "application/xml",
       "application/json" }, method = RequestMethod.GET)
-  public ResponseEntity<Object> getTweets(@PathVariable String userId,
+  public ResponseEntity<Object> getUserTweets(@PathVariable String userId,
       @RequestParam(value = "search", required = false) String search, Authentication authentication)
       throws UserNotFoundException {
     User authenticatedUser = (User) authentication.getPrincipal();
