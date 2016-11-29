@@ -47,3 +47,9 @@ The following is a Postman screenshot showing how to perform a `GET` request to 
 ![Postman Basic Auth](https://github.com/llattes/twitter-mini/raw/master/readme-files/postman-screen.png)
 
 All requests can produce `application/json` **and** `application/xml` responses; just add the `Accept` request header with the corresponding media type.
+
+## Deployed application
+
+The application was deployed in an EC2 instance in order to make it available for testing. Please hit http://ec2-35-165-14-112.us-west-2.compute.amazonaws.com:8080 to see the API docs.
+
+Trying a `GET` http://ec2-35-165-14-112.us-west-2.compute.amazonaws.com:8080/api/tweets using the credentials exposed above is a good place to start for testing the API itself.
