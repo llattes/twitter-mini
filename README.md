@@ -20,9 +20,10 @@ After validating the prerequisites, perform the following steps to run the appli
 2. Log into your MySQL server (you can use `mysql -u root -p` and enter your password afterwards) and create a database as follows: `CREATE DATABASE twittermini DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
 3. Review (and update) the database settings in the `application.properties` file located in the project's `src/main/resources` directory. You will probably need to change at least username and password. 
 4. Run `mvn clean install` in the directory in which the project was cloned. There should be a `pom.xml` file in that location.
-5. *[Optional]* If you are using Eclipse IDE, run `mvn eclipse:eclipse` to generate the Eclipse metadata. After that task is successful you'll be able to import the *existing project into workspace*.
-6. Run `mvn jetty:run-war` or `mvn jetty:run` to start the application. Once you see the following two lines, you should be able to start using the application: `[INFO] Started @5575ms - [INFO] Started Jetty Server`
-7. Hit `http://localhost:8080/` to see the list of endpoints of the **twitter-mini** RESTful API and a brief description of how those endpoints work.
+5. `mvn clean install` will run unit tests for both *RestController*s. You can check coverage data opening the following HTML page located in the `/target` folder: `target/site/jacoco/index.html`.  
+6. *[Optional]* If you are using Eclipse IDE, run `mvn eclipse:eclipse` to generate the Eclipse metadata. After that task is successful you'll be able to import the *existing project into workspace*.
+7. Run `mvn jetty:run-war` or `mvn jetty:run` to start the application. Once you see the following two lines, you should be able to start using the application: `[INFO] Started @5575ms - [INFO] Started Jetty Server`
+8. Hit `http://localhost:8080/` to see the list of endpoints of the **twitter-mini** RESTful API and a brief description of how those endpoints work.
 
 ![Swagger UI](https://github.com/llattes/twitter-mini/raw/master/readme-files/swagger-ui-screen.png)
 
