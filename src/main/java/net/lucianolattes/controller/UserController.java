@@ -29,6 +29,11 @@ import net.lucianolattes.model.UserInfo;
 import net.lucianolattes.model.UserProfile;
 import net.lucianolattes.service.UserService;
 
+/**
+ * {@link RestController RestController} for all user-related API calls.
+ *
+ * @author lucianolattes
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class UserController {

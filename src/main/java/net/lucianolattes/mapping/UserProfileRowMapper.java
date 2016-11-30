@@ -8,6 +8,11 @@ import org.springframework.jdbc.core.RowMapper;
 import net.lucianolattes.model.UserInfo;
 import net.lucianolattes.model.UserProfile;
 
+/**
+ * Maps a DB row to a <tt>UserProfile</tt> object.
+ *
+ * @author lucianolattes
+ */
 public class UserProfileRowMapper implements RowMapper<UserProfile> {
 
   @Override

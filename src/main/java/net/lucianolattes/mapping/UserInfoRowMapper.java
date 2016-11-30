@@ -7,6 +7,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import net.lucianolattes.model.UserInfo;
 
+/**
+ * Maps a DB row to a <tt>UserInfo</tt> object.
+ *
+ * @author lucianolattes
+ */
 public class UserInfoRowMapper implements RowMapper<UserInfo> {
 
   @Override

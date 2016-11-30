@@ -12,6 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import net.lucianolattes.mapping.TweetRowMapper;
 import net.lucianolattes.model.Tweet;
 
+/**
+ * Data Access Object that uses the <tt>NamedParameterJdbcTemplate</tt> bean for
+ * making JDBC operations against the tweets table.
+ *
+ * @author lucianolattes
+ */
 @Repository
 @Transactional
 public class TweetDao {

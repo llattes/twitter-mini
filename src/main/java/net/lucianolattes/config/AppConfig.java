@@ -18,6 +18,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * Main <tt>Configuration</tt> class for the twitter-mini application.
+ * <p>
+ * This is where the {@link DataSource DataSource} is constructed using the
+ * environment properties and initialized with data.
+ *
+ * @author lucianolattes
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "net.lucianolattes")
@@ -41,11 +49,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) throws ClassNotFoundException {
-    return new NamedParameterJdbcTemplate(dataSource);
-  }
-
-  @Bean
   public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
     DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
     dataSourceInitializer.setDataSource(dataSource);
@@ -58,6 +61,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     dataSourceInitializer.setDatabaseCleaner(databaseCleaner);
     dataSourceInitializer.setEnabled(Boolean.parseBoolean(initDatabase));
     return dataSourceInitializer;
+  }
+
+  @Bean
+  public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) throws ClassNotFoundException {
+    return new NamedParameterJdbcTemplate(dataSource);
   }
 
   @Override

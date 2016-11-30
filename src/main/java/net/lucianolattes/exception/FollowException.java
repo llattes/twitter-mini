@@ -1,5 +1,11 @@
 package net.lucianolattes.exception;
 
+/**
+ * A <tt>FollowException</tt> is thrown if a User attempt to follow/unfollow
+ * another User fails or is not allowed.
+ *
+ * @author lucianolattes
+ */
 public class FollowException extends Exception {
 
   private static final long serialVersionUID = 2L;

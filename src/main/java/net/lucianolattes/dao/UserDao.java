@@ -13,6 +13,12 @@ import net.lucianolattes.mapping.UserProfileRowMapper;
 import net.lucianolattes.model.UserInfo;
 import net.lucianolattes.model.UserProfile;
 
+/**
+ * Data Access Object that uses the <tt>NamedParameterJdbcTemplate</tt> bean for
+ * making JDBC operations against the users, follows and authorities tables.
+ *
+ * @author lucianolattes
+ */
 @Repository
 @Transactional
 public class UserDao {

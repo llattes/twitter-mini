@@ -14,9 +14,14 @@ import org.springframework.stereotype.Service;
 import net.lucianolattes.dao.UserDao;
 import net.lucianolattes.model.UserInfo;
 
+/**
+ * Service intended for loading user-specific data for authentication.
+ *
+ * @author lucianolattes
+ */
 @Service
 public class AuthenticationService implements UserDetailsService {
-  
+
   @Autowired
   private UserDao userDao;
 

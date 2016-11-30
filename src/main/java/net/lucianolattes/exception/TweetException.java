@@ -1,5 +1,11 @@
 package net.lucianolattes.exception;
 
+/**
+ * A <tt>TweetException</tt> is thrown if a User attempt to tweet or retweet a
+ * message fails or is not allowed.
+ *
+ * @author lucianolattes
+ */
 public class TweetException extends Exception {
 
   private static final long serialVersionUID = 3L;

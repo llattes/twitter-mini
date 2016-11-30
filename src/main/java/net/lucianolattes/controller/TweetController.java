@@ -28,6 +28,11 @@ import net.lucianolattes.model.ApiCallError;
 import net.lucianolattes.model.Tweet;
 import net.lucianolattes.service.TweetService;
 
+/**
+ * {@link RestController RestController} for all tweet-related API calls.
+ *
+ * @author lucianolattes
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class TweetController {

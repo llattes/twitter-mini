@@ -11,6 +11,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * This <tt>Configuration</tt> class defines the authentication and
+ * authorization schema for the API.
+ * <p>
+ * It relies on the {@link AuthenticationService AuthenticationService} for
+ * retrieving the user details.
+ *
+ * @author lucianolattes
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -34,6 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll().and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 
+  /**
+   * Runs the password encoding algorithm for each of the dummy users.
+   *
+   * @param args String[]
+   */
   public static void main(String[] args) {
     ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
     String[] usernames = { "luciano", "thousandeyes", "twitter", "johndoe", "iamdevloper" };

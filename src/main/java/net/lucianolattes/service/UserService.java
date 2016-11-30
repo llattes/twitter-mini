@@ -10,6 +10,13 @@ import net.lucianolattes.exception.FollowException;
 import net.lucianolattes.exception.UserNotFoundException;
 import net.lucianolattes.model.UserProfile;
 
+/**
+ * This service acts as a middleware between <tt>UserController</tt> and DAO
+ * layer. Gathers data from controller, performs validation and business logic
+ * and calls repositories for data manipulation.
+ *
+ * @author lucianolattes
+ */
 @Service
 public class UserService {
 

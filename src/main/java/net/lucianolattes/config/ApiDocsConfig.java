@@ -11,12 +11,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * This <tt>Configuration</tt> class exclusively enables Swagger 2 documentation
+ * and defines a <tt>Bean</tt> with the settings for those docs.
+ *
+ * @author lucianolattes
+ */
 @Configuration
 @EnableSwagger2
 public class ApiDocsConfig {
 
   @Bean
-  public Docket petApi() {
+  public Docket twitterMiniApi() {
     return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.any()).build().apiInfo(getApiInfo());
   }

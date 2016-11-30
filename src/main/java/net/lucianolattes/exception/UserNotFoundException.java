@@ -1,5 +1,11 @@
 package net.lucianolattes.exception;
 
+/**
+ * A <tt>UserNotFoundException</tt> is thrown if the User targeted for a lookup
+ * does not exist in the DB.
+ *
+ * @author lucianolattes
+ */
 public class UserNotFoundException extends Exception {
 
   private static final long serialVersionUID = 1L;

@@ -8,6 +8,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import net.lucianolattes.model.Tweet;
 
+/**
+ * Maps a DB row to a <tt>Tweet</tt> object.
+ *
+ * @author lucianolattes
+ */
 public class TweetRowMapper implements RowMapper<Tweet> {
 
   @Override
@@ -17,8 +22,10 @@ public class TweetRowMapper implements RowMapper<Tweet> {
     tweet.setId(rs.getLong("id"));
     tweet.setAuthor(rs.getString("author"));
     tweet.setContent(rs.getString("content"));
+
     Timestamp timestamp = rs.getTimestamp("timestamp");
     tweet.setTimestamp(new java.util.Date(timestamp.getTime()));
+
     tweet.setIsRetweet(rs.getBoolean("isRetweet"));
     tweet.setOriginalId(rs.getLong("originalId"));
     tweet.setOriginalAuthor(rs.getString("originalAuthor"));

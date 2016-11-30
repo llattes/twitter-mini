@@ -13,6 +13,13 @@ import net.lucianolattes.exception.UserNotFoundException;
 import net.lucianolattes.model.Tweet;
 import net.lucianolattes.model.UserProfile;
 
+/**
+ * This service acts as a middleware between <tt>TweetController</tt> and DAO
+ * layer. Gathers data from controller, performs validation and business logic
+ * and calls repositories for data manipulation.
+ *
+ * @author lucianolattes
+ */
 @Service
 public class TweetService {
 
@@ -49,11 +56,11 @@ public class TweetService {
     if (originalTweet == null) {
       throw new TweetException("Could not find tweet with ID '" + id + "' to retweet");
     }
-    
+
     if (!tweetDao.retweetAllowed(username, id)) {
       throw new TweetException("The tweet '" + id + "' was already retweeted or it is " + username + "'s own tweet");
     }
-    
+
     Tweet retweet = new Tweet(null, null, originalTweet.getContent(), true, originalTweet.getId(),
         originalTweet.getAuthor());
     return insertTweet(username, retweet);
