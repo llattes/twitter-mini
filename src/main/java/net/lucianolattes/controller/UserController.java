@@ -38,7 +38,7 @@ import net.lucianolattes.service.UserService;
 @RequestMapping(value = "/api")
 public class UserController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TweetController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
   @Autowired
   private UserService userService;

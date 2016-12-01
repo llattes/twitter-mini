@@ -8,7 +8,7 @@
 		</layout>
 	</appender>
 
-	<logger name="org.springframework" level="warn" additivity="false">
+	<logger name="org.springframework" level="info" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
