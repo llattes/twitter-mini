@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import net.lucianolattes.mapping.TweetRowMapper;
 import net.lucianolattes.model.Tweet;
@@ -19,7 +18,6 @@ import net.lucianolattes.model.Tweet;
  * @author lucianolattes
  */
 @Repository
-@Transactional
 public class TweetDao {
 
   @Autowired
